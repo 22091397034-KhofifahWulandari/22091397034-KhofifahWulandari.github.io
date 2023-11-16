@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Chatbot Kesehatan</title>
+</head>
+<body>
+    <div class="chatbox-wrapper">
+        <div class="chatbox-toggle">
+            <i class='bx bx-message-dots'></i>
+        </div>
+        <div class="chatbox-message-wrapper">
+            <div class="chatbox-message-header">
+                <div class="chatbox-message-profile">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" class="chatbox-message-image">
+                    <div>
+                        <h4 class="chatbox-message-name">GWS.ai</h4>
+                        <p class="chatbox-message-status">online</p>
+                    </div>
+                </div>
+                <div class="chatbox-message-dropdown">
+                    <i class='bx bx-dots-vertical-rounded chatbox-message-dropdown-toggle'></i>
+                    <ul class="chatbox-message-dropdown-menu">
+                        <li>
+                            <a href="#">Tentang</a>
+                        </li>
+                        <li>
+                            <a href="#">Bantuan</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chatbox-message-content">
+                <h4 class="chatbox-message-no-message">Pertanyaan Kesehatan</h4>
+                <div class="chatbox-message-item received">
+                    <span class="chatbox-message-item-text">
+                        Selamat datang! Saya Chatbot Kesehatan. Apakah Anda memiliki pertanyaan tentang kesehatan?
+                    </span>
+                    <span class="chatbox-message-item-time">08:30</span>
+                </div>
+                <div class="chatbox-message-item received">
+                    <span class="chatbox-message-item-text">
+                        Silakan ajukan pertanyaan Anda, dan saya akan mencoba memberikan jawaban yang berguna.
+                    </span>
+                    <span class="chatbox-message-item-time">08:40</span>
+                </div>
+            </div>			
+            <div class="chatbox-message-bottom">
+                <form action="#" class="chatbox-message-form">
+                    <textarea rows="1" placeholder="Tuliskan pertanyaan Anda..." class="chatbox-message-input" id="user-input"></textarea>
+                    <button type="submit" class="chatbox-message-submit" onclick="getUserInput()"><i class='bx bx-send'></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+			function getUserInput() {
+				// Dapatkan teks input pengguna
+				var userInput = document.getElementById("user-input").value;
+		
+				// Dapatkan waktu saat ini
+				function getCurrentTime() {
+				var currentTime = new Date();
+				var hours = currentTime.getHours();
+				var minutes = currentTime.getMinutes();
+				var timeString = hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+				return timeString;
+				}
+				
+				var timeString = getCurrentTime();
+
+         		 // Buat pesan dari pengguna
+				var userMessage = document.createElement("div");
+				userMessage.className = "chatbox-message-item sent";
+				userMessage.innerHTML = `
+				<span class='chatbox-message-item-time'>${timeString}</span>
+				<span class='chatbox-message-item-text'>${userInput}</span>`;
+				
+				// Tampilkan pesan dari pengguna
+				var messageContent = document.querySelector(".chatbox-message-content");
+				messageContent.appendChild(userMessage);
+		
+				// Lakukan pemrosesan kesehatan atau logika jawaban chatbot di sini
+				var botReply = getBotReply(userInput);
+		
+				// Buat pesan dari chatbot
+				var botMessage = document.createElement("div");
+				botMessage.className = "chatbox-message-item received";
+				botMessage.innerHTML = `
+				<span class='chatbox-message-item-time'>${timeString}</span>
+				<span class='chatbox-message-item-text'>${botReply}</span>`;
+		
+				// Tampilkan pesan dari chatbot
+				messageContent.appendChild(botMessage);
+		
+				// Hapus teks dari textarea
+				document.getElementById("user-input").value = "";
+			}
+		
+			function getBotReply(userInput) {
+				// Di sini Anda dapat menambahkan logika untuk menghasilkan jawaban chatbot berdasarkan userInput.
+				// Ini hanya contoh sederhana. Anda perlu mengembangkan logika yang lebih canggih sesuai kebutuhan.
+				if (userInput.includes("flu")) {
+				  return "Gejala flu umumnya meliputi demam, pilek, batuk, sakit tenggorokan, dan sakit kepala.";
+				} else if (userInput.includes("penyakit jantung")) {
+					return "Penyakit jantung adalah masalah serius yang dapat disebabkan oleh berbagai faktor, termasuk tekanan darah tinggi, kolesterol tinggi, merokok, dan kurangnya aktivitas fisik.";
+				} else if (userInput.includes("makanan sehat")) {
+					return "Makanan sehat termasuk buah, sayuran, sumber protein berkualitas seperti daging tanpa lemak, ikan, kacang-kacangan, dan biji-bijian utuh.";
+				} else if (userInput.includes("stres")) {
+					return "Stres dapat berdampak negatif pada kesehatan mental dan fisik. Cobalah teknik relaksasi seperti meditasi, olahraga, atau berkonsultasi dengan seorang profesional jika Anda mengalami stres berkepanjangan.";
+				} else if (userInput.includes("vaksinasi")) {
+					return "Vaksinasi adalah cara efektif untuk mencegah penyakit serius. Pastikan Anda dan keluarga Anda mendapatkan vaksinasi yang direkomendasikan oleh tenaga medis.";
+				} else if (userInput.includes("menurunkan berat badan")) {
+					return "Menurunkan berat badan bisa mencakup perubahan pola makan, lebih banyak aktivitas fisik, dan konsultasi dengan seorang ahli gizi atau pelatih personal.";
+				} else if (userInput.includes("konsultasi dokter")) {
+					return "Penting untuk selalu berkonsultasi dengan dokter jika Anda memiliki masalah kesehatan serius atau gejala yang mengkhawatirkan.";
+				} else if (userInput.includes("polusi udara")) {
+					return "Polusi udara dapat berdampak negatif pada kesehatan. Cobalah untuk menghindari daerah berpolusi dan gunakan masker jika diperlukan.";
+			    } else if (userInput.includes("kanker")) {
+					return "Kanker adalah pertumbuhan sel-sel tidak normal yang dapat terjadi di berbagai bagian tubuh. Pengobatan kanker tergantung pada jenis dan tahap kanker.";
+				} else if (userInput.includes("HIV/AIDS")) {
+					return "HIV adalah virus yang menyerang sistem kekebalan tubuh, dan AIDS adalah tahap lanjut dari infeksi HIV. HIV/AIDS dapat dihindari dengan tindakan pencegahan dan perawatan."
+				} else if (userInput.includes("Tuberkulosis TBC")) {
+				    return "Mengurangi kotak dengan penderita TBC aktif. Jika akan kontak pun, gunakanlah masker untuk melindungi pernapasan kita.";
+				} else if (userInput.includes("muntaber")) {
+				    return "Menjaga asupan makanan yang dikonsumsi secara cukup dan seimbang, Penggunaan air bersih untuk kegiatan sehari-hari terutama air minum Mencuci tangan secara teratur.";
+				} else if (userInput.includes("cacar air")) {
+				    return "Melakukan vaksinasi cacar air untuk Menjaga kebersihan diri sendiri, pakaian, dan lingkungan Mengkonsumsi makanan bergizi Menghindari sumber penularan cacar air.";
+				} else if (userInput.includes("tifus")) {
+				    return "Memastikan kebersihan bahan makanan sebelum memasaknya, Mencuci tangan secara teratur, terutama sebelum dan setelah makanan Membersihkan luka dan segera mengobatinya, Hindari jajan di pinggir jalan yang terlihat tidak higienis Menjaga daya tahan tubuh.";
+				} else if (userInput.includes("campak")) {
+				    return "campak adalah penyakit menular yang disebabkan oleh virus yang termasuk ke dalam golongan paramixovirus. Campak sangat menular. Biasanya gejalanya berupa naiknya suhu tubuh, batuk, nyeri tenggorokan, nyeri otot, hingga ruam pada kulit. Gejala ini muncul sekitar 7-14 hari setelah terinfeksi virus.";
+				} else if (userInput.includes("pneumonia atau radang paru paru")) {
+				    return "Mengenakan masker atau pelindung pernapasan apabila dekat dengan sumber risiko penularan pneumonia. Menjaga daya tahan tubuh agar tetap kuat melawan semua virus atau bakteri yang masuk ke dalam tubuh.";
+				} else if (userInput.includes("hepatitis")) {
+				    return "Hepatitis adalah penyakit menular yang menyerang organ hati pada manusia. Disebabkan oleh bakteri serta virus dan tidak bersihnya lingkungan sekitar, sehingga menginfeksi hati dan terjadi peradangan.";
+				} else if (userInput.includes("kolera")) {
+				    return "Sanitasi lingkungan yang baik. Terutama kebersihan air yang digunakan untuk minum, mandi, mencuci pakaian, alat makan, serta bahan makanan yang akan diolah. Hindari memasak ikan atau kerang setengah matang.";
+				} else if (userInput.includes("gula darah")) {
+				    return "Anda dapat menjaga gula darah dengan mengikuti diet seimbang, berolahraga secara teratur, dan minum obat jika diperlukan.";
+				} else if (userInput.includes("diabetes")) {
+				    return "Gejala diabetes meliputi sering haus, sering buang air kecil, sering lapar, penurunan berat badan tanpa sebab, lemah, lesu, dan luka yang sulit sembuh.";
+				} else if (userInput.includes("hipertensi")) {
+				    return "Anda dapat mencegah hipertensi dengan mengurangi konsumsi garam, alkohol, dan makanan berlemak, meningkatkan konsumsi buah dan sayur, berhenti merokok, dan mengelola stres.";
+				} else if (userInput.includes("asam urat")) {
+				    return "Gejala asam urat meliputi nyeri sendi yang tiba-tiba, bengkak, merah, dan panas pada sendi yang terkena, terutama pada jempol kaki.";
+				} else if (userInput.includes("diare")) {
+				    return "Anda dapat mengobati diare dengan minum banyak cairan untuk mencegah dehidrasi, mengonsumsi oralit atau larutan garam-gula buatan sendiri, menghindari makanan pedas, berminyak, atau susu, dan minum obat antidiare jika diperlukan.";
+				} else if (userInput.includes("tekanan darah normal")) {
+				    return "Tekanan darah normal adalah sekitar 120/80 mmHg. Jika tekanan darah Anda terlalu tinggi atau terlalu rendah, segera konsultasikan dengan dokter.";
+				} else if (userInput.includes("polio")) {
+			        return "Penyakit yang menyerang tubuh terutama pada bagian otot dan syaraf yang dapat mengakibatkan pelemahan otot yang bersifat permanen. Akhirnya tubuh dapat mengalami kelumpuhan bahkan hingga kematian. Penyakit ini disebabkan oleh virus polio yang sangat menular.";
+				} else if (userInput.includes("ebola")) {
+					return "Hindari bepergian ke daerah rawan Ebola untuk Menghindari kontak langsung dengan penderita. Aplagi terkena cairan tubuhnya seperti ludah, kotoran, ataupun keringat. Jika terpaksa harus kontak langsung dengn penderita, gunakan pengaman tubuh seperti sarung tangan dan masker.";
+				} else if (userInput.includes("AIDS")) {
+				    return "Hindari kontak dengan cairan tubuh penderita AIDS, seperti sperma, air liur, air seni, darah, dan cairan tubuh penderita lainnya. Bagi wanita hamil, jauhkanlah diri dari oenderita AIDS, karena akan sangat berbahaya bagi dirinya dan bayi yang dikandungnya.";
+				} else if (userInput.includes("demam berdarah")) {
+					return "Membersihkan genangan air di sekitar rumah agar terbebas dari nyamuk Aedes aegepty. Menutup tempat-tempat penyimpanan air. Menguras bak mandi minimal satu minggu sekali. Memebersihkan pekarangan rumah dari barang-barang bekas yang berpotensi sebagai tempat perkembangan jentik nyamuk.";
+				} else if (userInput.includes("rabies")) {
+					return "Penyakit rabies adalah penyakit yang menyerang sistem syaraf pusat pada manusia maupun hewan berdarah panas. Penyakit ini disebabkan oleh virus rabies, dan ditularkan pada manusia melalui hewan (anjing, kucing, atau kera). Menghindari gigitan hewan atau luka terbuka pada hewan.";
+				} else if (userInput.includes("panu")) {
+					return "Menjaga kebersihan tubuh. Cara termudah adalah dengan mandi setiap hari. Menghindari pemakaian handuk secara bergantian, Menjemur handuk setelah dipakai, Mencuci handuk minimal satu minggu sekali.";
+				} else if (userInput.includes("malaria")) {
+					return "Menghindari gigitan nyamuk dengan berbagai cara. Memakai pakaian panjang, atau menggunakan kelambu jika berada di rumah. Konsultasikan dahulu dengan dokter sebelum bepergian ke daerah yang marak terjadi malaria.";
+				} else if (userInput.includes("cacingan")) {
+					return "untuk mencegah cacingan anda harus mencuci tangan dengan benar setelah dan sebelum beraktifitas di luar rungan, begitu juga ketika akan makan. pastikan kebersihan makanan sebelum dimasak Memotong kuku dan tidak membiasakan memanjangkan kuku."
+				} else if (userInput.includes("nutrisi")) {
+					return "Nutrisi penting untuk kesehatan termasuk protein, karbohidrat, lemak, vitamin, dan mineral. Pastikan Anda memiliki diet seimbang yang mencakup semua nutrisi ini.";
+				} else if (userInput.includes("asma")) {
+                    return "Asma adalah penyakit pernapasan kronis yang ditandai dengan penyempitan saluran udara, yang menyebabkan kesulitan bernapas, batuk, dan mengi. Penanganan asma melibatkan penggunaan inhaler atau obat-obatan yang diresepkan oleh dokter. Menghindari pemicu asma, seperti debu atau asap, juga penting.";
+                } else if (userInput.includes("migrain")) {
+                    return "Migrain adalah jenis sakit kepala yang parah, seringkali disertai dengan gejala seperti mual, muntah, dan sensitivitas terhadap cahaya dan suara. Migrain dapat diobati dengan istirahat yang cukup, menghindari pemicu migrain, dan penggunaan obat-obatan yang diresepkan oleh dokter.";
+                } else if (userInput.includes("artritis")) {
+                    return "Artritis adalah peradangan sendi yang dapat menyebabkan nyeri, pembengkakan, dan keterbatasan gerakan pada sendi-sendi tertentu. Penanganan artritis melibatkan obat-obatan antiinflamasi, fisioterapi, dan gaya hidup sehat.";
+                } else if (userInput.includes("kolesterol tinggi")) {
+                    return "Kolesterol tinggi meningkatkan risiko penyakit jantung. Diet sehat dan olahraga dapat membantu mengendalikan kolesterol. engendalian kolesterol tinggi melibatkan diet rendah lemak, olahraga teratur, dan obat-obatan yang diresepkan jika diperlukan.";
+                } else if (userInput.includes("alergi")) {
+                    return "Alergi adalah reaksi tubuh terhadap substansi tertentu yang bisa menyebabkan gatal-gatal, bersin, mata berair, dan gejala alergi lainnya. Penanganan alergi melibatkan penghindaran pemicu alergi, penggunaan antihistamin, dan konsultasi dengan alergologis.";
+                } else if (userInput.includes("penyakit ginjal")) {
+                    return "Penyakit ginjal dapat menyebabkan gangguan fungsi ginjal, termasuk masalah pembuangan limbah dan keseimbangan cairan dalam tubuh. Penanganan penyakit ginjal tergantung pada jenis dan tingkat keparahannya. Ini dapat mencakup diet khusus, pengendalian tekanan darah, dan dialisis.";
+                } else if (userInput.includes("kanker payudara")) {
+                    return "Kanker payudara adalah kanker yang tumbuh di jaringan payudara. Pemeriksaan dini sangat penting untuk deteksi dan pengobatan lebih awal. Deteksi dini sangat penting. Pemeriksaan payudara berkala dan pengobatan yang direkomendasikan oleh dokter jika ditemukan gejala atau tanda kanker payudara.";
+                } else if (userInput.includes("penyakit jantung")) {
+                    return "Penyakit jantung adalah masalah serius yang dapat disebabkan oleh berbagai faktor, termasuk tekanan darah tinggi, kolesterol tinggi, merokok, dan kurangnya aktivitas fisik. Pencegahan penyakit jantung melibatkan mengontrol faktor risiko seperti tekanan darah tinggi dan kolesterol tinggi, berhenti merokok, diet sehat, dan olahraga.";
+                } else if (userInput.includes("makanan sehat")) {
+                    return "Makanan sehat termasuk buah, sayuran, sumber protein berkualitas seperti daging tanpa lemak, ikan, kacang-kacangan, dan biji-bijian utuh.";
+                } else if (userInput.includes("stres")) {
+                    return "Stres dapat berdampak negatif pada kesehatan mental dan fisik. Cobalah teknik relaksasi seperti meditasi, olahraga, atau berkonsultasi dengan seorang profesional jika Anda mengalami stres berkepanjangan. Mengelola stres dapat dilakukan dengan teknik relaksasi, olahraga, konseling, atau terapi jika diperlukan.";
+                } else if (userInput.includes("vaksinasi")) {
+                    return "Vaksinasi adalah cara efektif untuk mencegah penyakit serius. Pastikan Anda dan keluarga Anda mendapatkan vaksinasi yang direkomendasikan oleh tenaga medis. Vaksinasi adalah langkah pencegahan terbaik untuk mencegah penyakit menular. Ikuti jadwal vaksinasi yang direkomendasikan oleh pihak medis.";
+                } else if (userInput.includes("menurunkan berat badan")) {
+                    return "Menurunkan berat badan bisa mencakup perubahan pola makan, lebih banyak aktivitas fisik, dan konsultasi dengan seorang ahli gizi atau pelatih personal. Konsultasi dengan seorang ahli gizi atau pelatih pribadi dapat membantu dalam merencanakan program penurunan berat badan yang sehat.";
+                } else if (userInput.includes("konsultasi dokter")) {
+                    return "Penting untuk selalu berkonsultasi dengan dokter jika Anda memiliki masalah kesehatan serius atau gejala yang mengkhawatirkan.";
+                } else if (userInput.includes("polusi udara")) {
+                    return "Polusi udara dapat berdampak negatif pada kesehatan. Cobalah untuk menghindari daerah berpolusi dan gunakan masker jika diperlukan, dan dukung upaya untuk mengurangi polusi udara.";
+                } else if (userInput.includes("kanker")) {
+                    return "Kanker adalah pertumbuhan sel-sel tidak normal yang dapat terjadi di berbagai bagian tubuh. Pengobatan kanker tergantung pada jenis dan tahap kanker.";
+                } else if (userInput.includes("HIV/AIDS")) {
+                    return "HIV adalah virus yang menyerang sistem kekebalan tubuh, dan AIDS adalah tahap lanjut dari infeksi HIV. HIV/AIDS dapat dihindari dengan tindakan pencegahan dan perawatan. Pencegahan HIV melibatkan penggunaan kondom, tes HIV teratur, dan menghindari berbagi jarum suntik. Perawatan HIV memerlukan obat antiretroviral yang diresepkan oleh dokter."
+                } else if (userInput.includes("terimakasih")){
+					return "Semoga lekas sembuh:)", "Sama-sama. Senang bisa membantu:)"
+				} else if (userInput.includes("makasih")){
+					return "Semoga lekas sembuh:)", "Sama-sama. Senang bisa membantu:)"
+				} else if (userInput.includes("bye")){
+					return "sampai jumpa lagi"
+				} else if (userInput.includes("selamat tinggal")){
+					return "sampai jumpa lagi"
+				} else {
+					return "Maaf, saya tidak mengerti pertanyaan Anda. Silakan ajukan pertanyaan lain.";
+				}
+			}
+		</script>		
+</body>
+</html>
